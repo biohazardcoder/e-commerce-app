@@ -56,12 +56,31 @@ export default function TabLayout() {
         ),
       }}
     />
-
+  <Tabs.Screen
+      name="cart"
+      options={{
+        href: null, 
+        title: "Dashboard",
+        tabBarIcon: ({ color }) => (
+          <IconSymbol size={28} name="person" color={color} />
+        ),
+      }}
+    />
     <Tabs.Screen
       name="dashboard"
       options={{
         href: isAuth ? "/dashboard" : null, 
         title: "Dashboard",
+        tabBarIcon: ({ color }) => (
+          <IconSymbol size={28} name="person" color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="detail/[id]"
+      options={{
+        href: null, 
+        title: "Detail",
         tabBarIcon: ({ color }) => (
           <IconSymbol size={28} name="person" color={color} />
         ),

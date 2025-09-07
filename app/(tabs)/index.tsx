@@ -4,7 +4,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { Fetch } from '@/middlewares/Fetch';
 import { ClothTypes } from '@/types/types';
 import { Image } from 'expo-image';
-import { ShoppingBasket } from "lucide-react-native";
+import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -36,29 +36,132 @@ export default function HomeScreen() {
       <View style={styles.skeletonBtn} />
     </View>
   );
-
+  const mensClothes = clothes.filter(item=>item.category ==="Erkaklar").slice(0,4)
+  const womensClothes = clothes.filter(item=>item.category ==="Ayollar").slice(0,4)
+  const kidsClothes = clothes.filter(item=>item.category ==="Bolalar").slice(0,4)
+  const accessories = clothes.filter(item=>item.category ==="Aksessuarlar").slice(0,4)
   return (
     <ScrollView>
       <Navbar />
-      <View style={styles.container}>
+      <View >
         {loading
           ? 
-            Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)
-          : clothes.map(({ _id, title, photos, price }) => (
+            <View>
+              <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Men's Clothes</ThemedText>
+              <View style={styles.container}>
+                {Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)}
+              </View>
+              <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Women's Clothes</ThemedText>
+              <View style={styles.container}>
+                {Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)}
+              </View>
+              <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Kid's Clothes</ThemedText>
+              <View style={styles.container}>
+                {Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)}
+              </View>
+               <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Accessories</ThemedText>
+              <View style={styles.container}>
+                {Array.from({ length: 4 }).map((_, idx) => <SkeletonCard key={idx} />)}
+              </View>
+            </View>
+          : <View >
+            <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Men's Clothes</ThemedText>
+            <View style={styles.container}>
+                 {
+                mensClothes.map(({ _id, title, photos, price }) => (
               <ThemedView key={_id} style={styles.item}>
                 <Image source={photos[0]} style={styles.image} contentFit="cover" />
                 <ThemedText style={{ fontSize: 12 }}>
-                  {price.toLocaleString()} so'm
+                  {price.toLocaleString()} UZS
                 </ThemedText>
                 <ThemedText style={{ fontSize: 12, fontWeight: "600" }}>
                   {title}
                 </ThemedText>
-                <TouchableOpacity style={styles.shopBtn}>
-                  <ShoppingBasket color="white" size={18} />
-                  <Text style={styles.shopBtnText}>Shop</Text>
+                <Link href={{
+                  pathname: "/detail/[id]",
+                  params: {id : _id}
+                }} asChild>
+                   <TouchableOpacity style={styles.shopBtn}>
+                  <Text style={styles.shopBtnText}>Buy</Text>
                 </TouchableOpacity>
+                </Link>
               </ThemedView>
-            ))}
+            ))
+              }
+            </View>
+            <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Women's Clothes</ThemedText>
+            <View style={styles.container}>
+                 {
+                womensClothes.map(({ _id, title, photos, price }) => (
+              <ThemedView key={_id} style={styles.item}>
+                <Image source={photos[0]} style={styles.image} contentFit="cover" />
+                <ThemedText style={{ fontSize: 12 }}>
+                  {price.toLocaleString()} UZS
+                </ThemedText>
+                <ThemedText style={{ fontSize: 12, fontWeight: "600" }}>
+                  {title}
+                </ThemedText>
+                <Link href={{
+                  pathname: "/detail/[id]",
+                  params: {id : _id}
+                }} asChild>
+                   <TouchableOpacity style={styles.shopBtn}>
+                  <Text style={styles.shopBtnText}>Buy</Text>
+                </TouchableOpacity>
+                </Link>
+              </ThemedView>
+            ))
+              }
+            </View>
+            <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Kid's Clothes</ThemedText>
+            <View style={styles.container}>
+                 {
+                kidsClothes.map(({ _id, title, photos, price }) => (
+              <ThemedView key={_id} style={styles.item}>
+                <Image source={photos[0]} style={styles.image} contentFit="cover" />
+                <ThemedText style={{ fontSize: 12 }}>
+                  {price.toLocaleString()} UZS
+                </ThemedText>
+                <ThemedText style={{ fontSize: 12, fontWeight: "600" }}>
+                  {title}
+                </ThemedText>
+                <Link href={{
+                  pathname: "/detail/[id]",
+                  params: {id : _id}
+                }} asChild>
+                   <TouchableOpacity style={styles.shopBtn}>
+                  <Text style={styles.shopBtnText}>Buy</Text>
+                </TouchableOpacity>
+                </Link>
+              </ThemedView>
+            ))
+              }
+            </View>
+            <ThemedText style={{paddingHorizontal:20, paddingTop:20, fontSize:28, fontWeight:"bold"}}>Accessories</ThemedText>
+            <View style={styles.container}>
+                 {
+                accessories.map(({ _id, title, photos, price }) => (
+              <ThemedView key={_id} style={styles.item}>
+                <Image source={photos[0]} style={styles.image} contentFit="cover" />
+                <ThemedText style={{ fontSize: 12 }}>
+                  {price.toLocaleString()} UZS
+                </ThemedText>
+                <ThemedText style={{ fontSize: 12, fontWeight: "600" }}>
+                  {title}
+                </ThemedText>
+                <Link href={{
+                  pathname: "/detail/[id]",
+                  params: {id : _id}
+                }} asChild>
+                   <TouchableOpacity style={styles.shopBtn}>
+                  <Text style={styles.shopBtnText}>Buy</Text>
+                </TouchableOpacity>
+                </Link>
+              </ThemedView>
+            ))
+              }
+            </View>
+            </View>}
       </View>
     </ScrollView>);
 }
@@ -83,7 +186,7 @@ const styles = StyleSheet.create({
   },
   shopBtn: {
     marginTop: 8,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#004643",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

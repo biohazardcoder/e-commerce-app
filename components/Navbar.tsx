@@ -1,6 +1,7 @@
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { RootState } from '@/store/RootStore'
-import { Link, usePathname } from 'expo-router'
+import { Link, usePathname, useRouter } from 'expo-router'
+import { ShoppingCart } from 'lucide-react-native'
 import React from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -11,6 +12,7 @@ export const Navbar = () => {
     const pathname = usePathname()
     const {isAuth,isPending} = useSelector((state:RootState)=>state.user)
     const colorScheme = useColorScheme();
+    const router = useRouter()
   return (
     <ThemedView style={styles.container}>
         <Link href={"/"}>
@@ -29,11 +31,11 @@ export const Navbar = () => {
         </Link>
        }
         {
-        isAuth &&  !isPending  && pathname !== "/dashboard" &&  <Link href={"/dashboard"}>
-            <ThemedText style={styles.title}>
-                Dashboard
+        isAuth &&  !isPending  && pathname !== "/cart" &&  
+            <ThemedText style={styles.title} onPress={()=>router.push("/cart")}>
+                <ShoppingCart/>
             </ThemedText>
-        </Link>
+       
        }
     </ThemedView>
 )}
